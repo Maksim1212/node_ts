@@ -1,0 +1,23 @@
+{
+    "compilerOptions": {
+      "outDir": "./build/",
+      "module": "commonjs",
+      "target": "ES6",
+      "allowJs": true,
+      "experimentalDecorators": true,
+      "removeComments": true,
+      "sourceMap": false,
+      "resolveJsonModule": true,
+      "plugins": [
+        {
+          "name": "tslint-language-service"
+        }
+      ]
+    },
+    "include": [
+      "src/**/*"
+    ],
+    "exclude": [
+      "node_modules"
+    ]
+  }
