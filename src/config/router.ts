@@ -1,5 +1,5 @@
 import * as express from 'express';
-// import AuthUserRouter from '../components/Auth/router';
+import AuthUserRouter from '../components/Auth/router';
 // import PostRouter from '../components/Post/router';
 // import CommentRouter from '../components/Comment/router';
 
@@ -21,7 +21,7 @@ export default class Router {
          * @param {string} path - Express path
          * @param {callback} middleware - Express middleware.
          */
-        // app.use('/v1/auth', AuthUserRouter);
+        app.use('/v1/auth', AuthUserRouter);
 
         /**
          * Forwards any requests to the /posts URI to PostRouter.
