@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
+import { validationResult } from 'express-validator';
 import User from './model';
 
 const saltRounds = 10;
@@ -9,15 +10,16 @@ const wrongPassword = 'Wrong Password';
 
 export async function createUser(req: Request, res: Response): Promise<Response> {
     try {
-        console.log('ok');
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
         req.body.password = await bcrypt.hash(req.body.password, saltRounds);
-        // const user = await AuthUserService.createUser(req.body);
         const newUser = await getRepository(User).create(req.body);
         const results = await getRepository(User).save(newUser);
         return res.json(results);
-        // return res.status(200).json({
-        //     user,
-        // });
     } catch (error) {
         return res.status(500).json({
             message: error,

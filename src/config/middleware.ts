@@ -5,9 +5,12 @@ import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as session from 'express-session';
 import * as express from 'express';
+import 'reflect-metadata';
+import createDbConnection from './connection';
 
 export default class Middleware {
     public static init(app: express.Application): void {
+        createDbConnection();
         app.use(
             bodyParser.urlencoded({
                 extended: true,
