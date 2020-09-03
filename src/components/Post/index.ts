@@ -106,10 +106,12 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
         }
 
         const postData = await getRepository(Post).findOneOrFail(req.body.post_id);
-        const like = postData.likes.find((id) => id === `${req.body.user_id}`);
+        let like: string;
         const likes = [];
-        likes.push(...postData.likes);
-
+        if (postData.likes !== null) {
+            like = postData.likes.find((id) => id === `${req.body.user_id}`);
+            likes.push(...postData.likes);
+        }
         if (like === undefined) {
             likes.push(req.body.user_id);
             const likesData: LikesData = { likes };

@@ -1,7 +1,7 @@
 import * as express from 'express';
 import AuthUserRouter from '../components/Auth/router';
 import PostRouter from '../components/Post/router';
-// import CommentRouter from '../components/Comment/router';
+import CommentRouter from '../components/Comment/router';
 
 export default class Router {
     /**
@@ -41,7 +41,7 @@ export default class Router {
          * @param {string} path - Express path
          * @param {callback} middleware - Express middleware.
          */
-        // app.use('/comments', CommentRouter);
+        app.use('/comments', CommentRouter);
 
         /**
          * @description No results returned mean the object is not found
