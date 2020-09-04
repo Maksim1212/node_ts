@@ -23,8 +23,9 @@ authUserRouter.put(
     '/update',
     [
         body('email').isEmail(),
-        body('password').isLength({ min: 5, max: 45 }),
-        body('newPassword').isLength({ min: 5, max: 45 }),
+        body('password').isString().isLength({ min: 5, max: 45 }),
+        body('newPassword').isString().isLength({ min: 5, max: 45 }),
+        body('accessToken').isString().isLength({ min: 100, max: 200 }),
     ],
     Auth,
     AuthUserComponent.updateUserPass,

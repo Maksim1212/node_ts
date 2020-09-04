@@ -19,7 +19,8 @@ export interface UpdateData {
     refreshToken: string;
 }
 
-// export interface Decoder {
+// interface Decoded {
+//     [key: string]: number;
 //     user: number;
 //     iat: number;
 //     exp: number;

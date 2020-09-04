@@ -10,12 +10,14 @@ export default async function isAuthJWT(req: Request, res: Response, next: NextF
     let verify;
     try {
         const token = req.body.accessToken;
-        // console.log('decode', jwt.decode(token));
         verify = jwt.verify(token, process.env.JWT_Access_Secret_KEY);
     } catch (error) {
         if (error.message === 'jwt expired') {
-            tokens = await getJWTTokens(req.body.user_id);
-            const user = await getRepository(User).findOne(req.body.user_id);
+            const decoded = [];
+            decoded.push(...Object.values(jwt.decode(req.body.accessToken)));
+            const userId: number = decoded[0];
+            tokens = await getJWTTokens(userId);
+            const user = await getRepository(User).findOne(userId);
             const { accessToken } = tokens;
             req.body.accessToken = accessToken;
             const token = req.body.accessToken;

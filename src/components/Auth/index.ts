@@ -12,7 +12,7 @@ const userNotFound = 'This Email not found';
 const wrongPassword = 'Wrong Password';
 
 export async function getJWTTokens(user: number): Promise<Tokens> {
-    const accessToken = jwt.sign({ user }, process.env.JWT_Access_Secret_KEY, { expiresIn: 1 });
+    const accessToken = jwt.sign({ user }, process.env.JWT_Access_Secret_KEY, { expiresIn: 86400 });
     const refreshToken = jwt.sign({ user }, process.env.JWT_Refresh_Secret_KEY, { expiresIn: '15d' });
     const userRefreshToken = { refreshToken };
     await getRepository(User).update(user, userRefreshToken);
