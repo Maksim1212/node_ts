@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { validationResult } from 'express-validator';
 import Post from './model';
-import LikesData from '../interface';
+import { LikesData } from '../interfaces';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     try {

@@ -14,6 +14,6 @@ export default class User {
     @Column({ type: 'varchar' })
     password: string;
 
-    @Column({ type: 'varchar', default: 'null' })
+    @Column({ type: 'varchar', default: null })
     refreshToken: string;
 }
