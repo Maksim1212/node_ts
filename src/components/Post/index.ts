@@ -54,8 +54,8 @@ export async function findByUserId(req: Request, res: Response): Promise<Respons
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
-        const id = Number(req.params.id);
-        const posts = await getRepository(Post).findOneOrFail({ id });
+
+        const posts = await getRepository(Post).find({ author_id: Number(req.params.id) });
         return res.status(200).json({ posts });
     } catch (error) {
         return res.status(500).json({ error });
@@ -125,28 +125,41 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
     }
 }
 
-// async function sort(req, res, next) {
-//     try {
-//         const param = Number(req.body.param);
-//         const posts = await PostService.sort(param);
-//         return res.status(200).json(posts);
-//     } catch (error) {
-//         return res.status(422).json({
-//             error: error.name,
-//             details: error.message,
-//         });
-//     }
-// }
+export async function sort(req: Request, res: Response): Promise<Response> {
+    try {
+        const errors = validationResult(req);
 
-// async function sortByLikes(req, res, next) {
-//     try {
-//         const param = Number(req.body.param);
-//         const posts = await PostService.sortByLikes();
-//         return res.status(200).json(posts);
-//     } catch (error) {
-//         return res.status(422).json({
-//             error: error.name,
-//             details: error.message,
-//         });
-//     }
-// }
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { parametr } = req.body;
+
+        const posts = await getRepository(Post).createQueryBuilder('post').orderBy('creation_time', parametr).getMany();
+        return res.status(200).json(posts);
+    } catch (error) {
+        return res.status(422).json({
+            error: error.name,
+            details: error.message,
+        });
+    }
+}
+
+export async function sortByLikes(req: Request, res: Response): Promise<Response> {
+    try {
+        const errors = validationResult(req);
+
+        if (!errors.isEmpty()) {
+            return res.status(400).json({ errors: errors.array() });
+        }
+
+        const { parametr } = req.body;
+        const posts = await getRepository(Post).createQueryBuilder('post').orderBy('likes', parametr).getMany();
+        return res.status(200).json(posts);
+    } catch (error) {
+        return res.status(422).json({
+            error: error.name,
+            details: error.message,
+        });
+    }
+}

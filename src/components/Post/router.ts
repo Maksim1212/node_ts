@@ -10,6 +10,10 @@ postRouter.get('/:id', PostComponent.findById);
 
 postRouter.get('/user/:id', PostComponent.findByUserId);
 
+postRouter.post('/sort', [body('parametr').isString().isLength({ min: 3, max: 4 })], PostComponent.sort);
+
+postRouter.post('/likes', [body('parametr').isString().isLength({ min: 3, max: 4 })], PostComponent.sortByLikes);
+
 postRouter.post(
     '/create',
     [
