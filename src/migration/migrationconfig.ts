@@ -9,7 +9,11 @@ const connectionOptions: ConnectionOptions = {
     database: process.env.DB_NAME,
     // migrationsTableName: 'post',
     migrations: ['src/migration/**/*{.ts,.js}'],
-    entities: ['/src/components/**/*{.ts,.js}'],
+    entities: [
+        '/src/components/Auth/**/*{.ts,.js}',
+        '/src/components/Comment/**/*{.ts,.js}',
+        '/src/components/Post/**/*{.ts,.js}',
+    ],
     synchronize: true,
     cli: {
         migrationsDir: '/src/migration',
