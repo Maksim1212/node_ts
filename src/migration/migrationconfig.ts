@@ -7,8 +7,8 @@ const connectionOptions: ConnectionOptions = {
     username: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
-    migrationsTableName: 'post',
-    migrations: ['/src/migration/**/*{.ts,.js}'],
+    // migrationsTableName: 'post',
+    migrations: ['src/migration/**/*{.ts,.js}'],
     entities: ['/src/components/**/*{.ts,.js}'],
     synchronize: true,
     cli: {
