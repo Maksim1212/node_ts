@@ -17,6 +17,7 @@
 
 - Clone the repository
 - Run npm install
+- Сreate database and user according to .env
 - Run npm run start command:
 ```
 npm run start
