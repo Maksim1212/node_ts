@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import { User } from '../models/user.model';
+import { User } from '../models/User';
 import { getJWTTokens } from '../components/Auth/index';
 import { Tokens } from '../interfaces/UserModelInterface';
 

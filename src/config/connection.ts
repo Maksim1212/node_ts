@@ -1,7 +1,7 @@
 import { Connection, createConnection } from 'typeorm';
-import { User } from '../models/user.model';
-import Post from '../models/post.model';
-import Comment from '../models/comment.model';
+import { User } from '../models/User';
+import Post from '../models/Post';
+import Comment from '../models/Comment';
 
 export default async function createDbConnection(): Promise<Connection> {
     const entities = [User, Post, Comment];
