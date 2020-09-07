@@ -1,7 +1,9 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
+import { UserMain } from '../interfaces/UserModelInterface';
+
 @Entity()
-export default class User {
+export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
@@ -16,4 +18,12 @@ export default class User {
 
     @Column({ type: 'varchar', default: null })
     refreshToken: string;
+}
+
+export function getUserMainFields(user: UserMain): UserMain {
+    const { name, id } = user;
+    return {
+        id,
+        name,
+    };
 }

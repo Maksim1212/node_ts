@@ -28,7 +28,7 @@ export default class Middleware {
         app.use(
             session({
                 cookie: { maxAge: 3600000 },
-                secret: 'keyboard cat',
+                secret: process.env.SESSION_SECRET,
                 resave: false,
                 saveUninitialized: true,
             }),
