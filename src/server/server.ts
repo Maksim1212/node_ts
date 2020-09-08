@@ -5,12 +5,15 @@ import * as cookieParser from 'cookie-parser';
 import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as session from 'express-session';
+import { Connection, createConnection } from 'typeorm';
 import AuthUserRouter from '../routes/UserRouter';
 import PostRouter from '../routes/PostRouter';
 import CommentRouter from '../routes/CommentRouter';
+import { User } from '../models/User';
+import Post from '../models/Post';
+import Comment from '../models/Comment';
 import 'reflect-metadata';
-import createDbConnection from '../config/connection';
-import { sessionSecret } from '../config/config';
+import { sessionSecret, connectionConfig } from '../config/config';
 
 /**
  * @type {express}
@@ -21,7 +24,22 @@ const app: express.Application = express();
 /**
  * @description express.Application Middleware
  */
+async function createDbConnection(): Promise<Connection> {
+    const entities = [User, Post, Comment];
+
+    return createConnection({
+        type: 'mysql',
+        host: connectionConfig.host,
+        port: connectionConfig.port,
+        username: connectionConfig.username,
+        password: connectionConfig.password,
+        database: connectionConfig.database,
+        entities,
+        synchronize: true,
+    });
+}
 createDbConnection();
+
 app.use(
     bodyParser.urlencoded({
         extended: true,
