@@ -1,19 +1,15 @@
 import { ConnectionOptions } from 'typeorm';
+import { connectionConfig } from '../config/config';
 
 const connectionOptions: ConnectionOptions = {
     type: 'mysql',
-    host: process.env.DB_HOST,
+    host: connectionConfig.host,
     port: 3306,
-    username: process.env.DB_USER,
-    password: process.env.DB_PASS,
-    database: process.env.DB_NAME,
-    // migrationsTableName: 'post',
+    username: connectionConfig.username,
+    password: connectionConfig.password,
+    database: connectionConfig.database,
     migrations: ['src/migration/**/*{.ts,.js}'],
-    entities: [
-        '/src/components/Auth/**/*{.ts,.js}',
-        '/src/components/Comment/**/*{.ts,.js}',
-        '/src/components/Post/**/*{.ts,.js}',
-    ],
+    entities: ['/src/models/**/*{.ts,.js}'],
     synchronize: true,
     cli: {
         migrationsDir: '/src/migration',

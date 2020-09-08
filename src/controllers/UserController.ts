@@ -5,14 +5,15 @@ import { validationResult } from 'express-validator';
 import * as jwt from 'jsonwebtoken';
 import { User, getUserMainFields } from '../models/User';
 import { UpdateData, Tokens, Password } from '../interfaces/UserModelInterface';
+import { serviceConfig } from '../config/config';
 
 const saltRounds = 10;
 const userNotFound = 'This Email not found';
 const wrongPassword = 'Wrong Password';
 
 export async function getJWTTokens(user: number): Promise<Tokens> {
-    const accessToken = jwt.sign({ user }, process.env.JWT_Access_Secret_KEY, { expiresIn: 86400 });
-    const refreshToken = jwt.sign({ user }, process.env.JWT_Refresh_Secret_KEY, { expiresIn: '15d' });
+    const accessToken = jwt.sign({ user }, serviceConfig.jwt.accessSecret, { expiresIn: 86400 });
+    const refreshToken = jwt.sign({ user }, serviceConfig.jwt.refreshSecret, { expiresIn: '15d' });
     const userRefreshToken = { refreshToken };
     await getRepository(User).update(user, userRefreshToken);
     return {

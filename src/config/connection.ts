@@ -2,17 +2,18 @@ import { Connection, createConnection } from 'typeorm';
 import { User } from '../models/User';
 import Post from '../models/Post';
 import Comment from '../models/Comment';
+import { connectionConfig } from './config';
 
 export default async function createDbConnection(): Promise<Connection> {
     const entities = [User, Post, Comment];
 
     return createConnection({
         type: 'mysql',
-        host: process.env.DB_HOST,
+        host: connectionConfig.host,
         port: 3306,
-        username: process.env.DB_USER,
-        password: process.env.DB_PASS,
-        database: process.env.DB_NAME,
+        username: connectionConfig.username,
+        password: connectionConfig.password,
+        database: connectionConfig.database,
         entities,
         synchronize: true,
     });

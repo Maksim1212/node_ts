@@ -1,16 +1,4 @@
-interface ServiceConfigInterface {
-    jwt: {
-        refreshSecret: string;
-        accessSecret: string;
-    };
-}
-
-interface ConnectionConfigInterface {
-    host: string;
-    username: string;
-    password: string;
-    database: string;
-}
+import { ServiceConfigInterface, ConnectionConfigInterface } from '../interfaces/ConfigInterfaces';
 
 export const serviceConfig: ServiceConfigInterface = {
     jwt: {

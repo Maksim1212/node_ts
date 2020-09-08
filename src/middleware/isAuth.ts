@@ -4,13 +4,14 @@ import { getRepository } from 'typeorm';
 import { User } from '../models/User';
 import { getJWTTokens } from '../controllers/UserController';
 import { Tokens } from '../interfaces/UserModelInterface';
+import { serviceConfig } from '../config/config';
 
 export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<unknown> {
     let tokens: Tokens;
     let verify;
     try {
         const token = req.body.accessToken;
-        verify = jwt.verify(token, process.env.JWT_Access_Secret_KEY);
+        verify = jwt.verify(token, serviceConfig.jwt.accessSecret);
     } catch (error) {
         if (error.message === 'jwt expired') {
             const decoded = [];
@@ -21,7 +22,7 @@ export default async function isAuthJWT(req: Request, res: Response, next: NextF
             const { accessToken } = tokens;
             req.body.accessToken = accessToken;
             const token = req.body.accessToken;
-            verify = jwt.verify(token, process.env.JWT_Access_Secret_KEY);
+            verify = jwt.verify(token, serviceConfig.jwt.accessSecret);
             if (!user) {
                 return res.status(401).json({ message: 'user not found' });
             }

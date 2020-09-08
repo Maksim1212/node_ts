@@ -7,6 +7,7 @@ import * as session from 'express-session';
 import * as express from 'express';
 import 'reflect-metadata';
 import createDbConnection from './connection';
+import { sessionSecret } from './config';
 
 export default class Middleware {
     public static init(app: express.Application): void {
@@ -28,7 +29,7 @@ export default class Middleware {
         app.use(
             session({
                 cookie: { maxAge: 3600000 },
-                secret: process.env.SESSION_SECRET,
+                secret: sessionSecret,
                 resave: false,
                 saveUninitialized: true,
             }),
