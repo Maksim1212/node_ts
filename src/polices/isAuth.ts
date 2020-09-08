@@ -5,7 +5,7 @@ import { User } from '../models/User';
 import { getJWTTokens } from '../components/Auth/index';
 import { Tokens } from '../interfaces/UserModelInterface';
 
-export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<any> {
+export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<unknown> {
     let tokens: Tokens;
     let verify;
     try {
