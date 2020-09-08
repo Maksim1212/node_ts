@@ -4,7 +4,7 @@ import { connectionConfig } from '../config/config';
 const connectionOptions: ConnectionOptions = {
     type: 'mysql',
     host: connectionConfig.host,
-    port: 3306,
+    port: connectionConfig.port,
     username: connectionConfig.username,
     password: connectionConfig.password,
     database: connectionConfig.database,

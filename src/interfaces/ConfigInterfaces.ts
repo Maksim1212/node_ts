@@ -10,4 +10,5 @@ export interface ConnectionConfigInterface {
     username: string;
     password: string;
     database: string;
+    port: number;
 }

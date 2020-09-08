@@ -12,6 +12,7 @@ export const connectionConfig: ConnectionConfigInterface = {
     username: process.env.DB_USER || 'blogAdmin',
     password: process.env.DB_PASS || 'blogadmin',
     database: process.env.DB_NAME || 'blog',
+    port: 3306,
 };
 
 export const sessionSecret: string = process.env.SESSION_SECRET || 'keyboard cat';

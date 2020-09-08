@@ -10,7 +10,7 @@ export default async function createDbConnection(): Promise<Connection> {
     return createConnection({
         type: 'mysql',
         host: connectionConfig.host,
-        port: 3306,
+        port: connectionConfig.port,
         username: connectionConfig.username,
         password: connectionConfig.password,
         database: connectionConfig.database,
