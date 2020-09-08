@@ -1,7 +1,7 @@
 import * as express from 'express';
-import AuthUserRouter from '../components/Auth/router';
-import PostRouter from '../components/Post/router';
-import CommentRouter from '../components/Comment/router';
+import AuthUserRouter from '../routes/UserRouter';
+import PostRouter from '../routes/PostRouter';
+import CommentRouter from '../routes/CommentRouter';
 
 export default class Router {
     /**

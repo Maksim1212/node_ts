@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as PostComponent from '.';
+import * as PostComponent from '../controllers/PostController';
 import {
     sortPostValidation,
     sortByLikesValidation,
@@ -7,8 +7,8 @@ import {
     updatePostValidation,
     likePostValidation,
     deletePostValidation,
-} from './validation';
-import Auth from '../../polices/isAuth';
+} from '../validations/PostValidation';
+import Auth from '../middleware/isAuth';
 
 const postRouter = Router();
 

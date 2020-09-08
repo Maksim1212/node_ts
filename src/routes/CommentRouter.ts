@@ -1,7 +1,7 @@
 import { Router } from 'express';
-import * as CommentComponent from '.';
-import Auth from '../../polices/isAuth';
-import { createCommentValidation, likeCommentValidation } from './validation';
+import * as CommentComponent from '../controllers/CommentController';
+import Auth from '../middleware/isAuth';
+import { createCommentValidation, likeCommentValidation } from '../validations/CommentValidation';
 
 const commentRouter = Router();
 

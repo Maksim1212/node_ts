@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import { validationResult } from 'express-validator';
-import Post from '../../models/Post';
-import { LikesData } from '../../interfaces/LikesDataInterface';
+import Post from '../models/Post';
+import { LikesData } from '../interfaces/LikesDataInterface';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     try {

@@ -3,8 +3,8 @@ import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
 import { validationResult } from 'express-validator';
 import * as jwt from 'jsonwebtoken';
-import { User, getUserMainFields } from '../../models/User';
-import { UpdateData, Tokens, Password } from '../../interfaces/UserModelInterface';
+import { User, getUserMainFields } from '../models/User';
+import { UpdateData, Tokens, Password } from '../interfaces/UserModelInterface';
 
 const saltRounds = 10;
 const userNotFound = 'This Email not found';

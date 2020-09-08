@@ -1,7 +1,12 @@
 import { Router } from 'express';
-import * as AuthUserComponent from '.';
-import Auth from '../../polices/isAuth';
-import { loginValidation, logoutValidation, createUserValidation, updateValidation } from './validation';
+import * as AuthUserComponent from '../controllers/UserController';
+import Auth from '../middleware/isAuth';
+import {
+    loginValidation,
+    logoutValidation,
+    createUserValidation,
+    updateValidation,
+} from '../validations/UserValidation';
 
 const authUserRouter = Router();
 
