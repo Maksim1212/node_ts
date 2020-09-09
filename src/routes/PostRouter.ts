@@ -1,4 +1,5 @@
 import { Router } from 'express';
+import * as asyncHandler from 'express-async-handler';
 import * as PostComponent from '../controllers/PostController';
 import {
     sortPostValidation,
@@ -12,22 +13,22 @@ import Auth from '../middleware/isAuth';
 
 const postRouter = Router();
 
-postRouter.get('/', PostComponent.findAll);
+postRouter.get('/', asyncHandler(PostComponent.findAll));
 
-postRouter.get('/:id', PostComponent.findById);
+postRouter.get('/:id', asyncHandler(PostComponent.findById));
 
-postRouter.get('/user/:id', PostComponent.findByUserId);
+postRouter.get('/user/:id', asyncHandler(PostComponent.findByUserId));
 
-postRouter.post('/sort', sortPostValidation, PostComponent.sort);
+postRouter.post('/sort', sortPostValidation, asyncHandler(PostComponent.sort));
 
-postRouter.post('/likes', sortByLikesValidation, PostComponent.sortByLikes);
+postRouter.post('/likes', sortByLikesValidation, asyncHandler(PostComponent.sortByLikes));
 
-postRouter.post('/create', createPostValidation, Auth, PostComponent.create);
+postRouter.post('/create', createPostValidation, Auth, asyncHandler(PostComponent.create));
 
-postRouter.put('/update', updatePostValidation, PostComponent.updateById);
+postRouter.put('/update', updatePostValidation, asyncHandler(PostComponent.updateById));
 
-postRouter.put('/like', likePostValidation, Auth, PostComponent.addLike);
+postRouter.put('/like', likePostValidation, Auth, asyncHandler(PostComponent.addLike));
 
-postRouter.delete('/', deletePostValidation, Auth, PostComponent.deleteById);
+postRouter.delete('/', deletePostValidation, Auth, asyncHandler(PostComponent.deleteById));
 
 export default postRouter;

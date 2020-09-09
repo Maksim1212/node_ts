@@ -6,12 +6,12 @@ import { createCommentValidation, likeCommentValidation } from '../validations/C
 
 const commentRouter = Router();
 
-commentRouter.get('/', CommentComponent.findAll);
+commentRouter.get('/', asyncHandler(CommentComponent.findAll));
 
 commentRouter.get('/:id', asyncHandler(CommentComponent.findByPostId));
 
-commentRouter.post('/create', createCommentValidation, Auth, CommentComponent.create);
+commentRouter.post('/create', createCommentValidation, Auth, asyncHandler(CommentComponent.create));
 
-commentRouter.put('/like', likeCommentValidation, Auth, CommentComponent.addLike);
+commentRouter.put('/like', likeCommentValidation, Auth, asyncHandler(CommentComponent.addLike));
 
 export default commentRouter;
