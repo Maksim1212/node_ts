@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
-import { validationResult } from 'express-validator';
 import * as jwt from 'jsonwebtoken';
+import validateData from '../middleware/isValid';
 import { User, getUserMainFields } from '../models/User';
 import { UpdateData, Tokens, Password } from '../interfaces/UserModelInterface';
 import { serviceConfig } from '../config/config';
@@ -23,11 +23,7 @@ export async function getJWTTokens(user: number): Promise<Tokens> {
 }
 
 export async function createUser(req: Request, res: Response): Promise<Response> {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    validateData(req);
 
     req.body.password = await bcrypt.hash(req.body.password, saltRounds);
     const newUser = getRepository(User).create(req.body);
@@ -36,11 +32,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
 }
 
 export async function login(req: Request, res: Response): Promise<Response> {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    validateData(req);
 
     const user = await getRepository(User).findOne({ where: { email: req.body.email } });
     if (!user) {
@@ -72,11 +64,7 @@ export async function login(req: Request, res: Response): Promise<Response> {
 }
 
 export async function updateUserPass(req: Request, res: Response): Promise<Response> {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    validateData(req);
 
     const updatingUser = await getRepository(User).findOne({ where: { email: req.body.email } });
 
@@ -102,11 +90,7 @@ export async function updateUserPass(req: Request, res: Response): Promise<Respo
 }
 
 export async function getUserFromID(req: Request, res: Response): Promise<Response> {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    validateData(req);
 
     const user = await getRepository(User).findOne(req.params.id);
     const { name } = user;
@@ -114,11 +98,7 @@ export async function getUserFromID(req: Request, res: Response): Promise<Respon
 }
 
 export async function logout(req: Request, res: Response): Promise<Response> {
-    const errors = validationResult(req);
-
-    if (!errors.isEmpty()) {
-        return res.status(400).json({ errors: errors.array() });
-    }
+    validateData(req);
 
     const userData: UpdateData = { refreshToken: 'null' };
     const userId = req.body.user_id;

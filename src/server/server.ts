@@ -14,6 +14,7 @@ import Post from '../models/Post';
 import Comment from '../models/Comment';
 import 'reflect-metadata';
 import { sessionSecret, connectionConfig } from '../config/config';
+import ValidationError from '../error/ValidationError';
 
 /**
  * @type {express}
@@ -118,7 +119,9 @@ app.use('/comments', CommentRouter);
  */
 app.use((req: express.Request, res: express.Response) => {
     res.status(404).json({
-        message: 'page not found',
+        error: {
+            message: 'Page not found',
+        },
     });
 });
 
@@ -129,14 +132,26 @@ app.use((req: express.Request, res: express.Response) => {
  */
 app.use(router);
 
+app.use((error: ValidationError, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    res.status(400).json({
+        error: {
+            name: error.name,
+            message: error.message,
+            parametr: error.param,
+            value: error.value,
+        },
+    });
+    next();
+});
+
 app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
-    res.status(500);
-    res.json({
+    res.status(500).json({
         error: {
             name: error.name,
             message: error.message,
         },
     });
+    next();
 });
 
 /**
