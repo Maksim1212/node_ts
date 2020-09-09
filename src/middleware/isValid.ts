@@ -8,6 +8,7 @@ export default function validateData(req: Request): void {
         const message: string = errors.array()[0].msg;
         const { value } = errors.array()[0];
         const { param } = errors.array()[0];
-        throw new ValidationError(message, value, param);
+        const status = 400;
+        throw new ValidationError(message, value, param, status);
     }
 }
