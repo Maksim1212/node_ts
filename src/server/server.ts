@@ -129,6 +129,16 @@ app.use((req: express.Request, res: express.Response) => {
  */
 app.use(router);
 
+app.use((error: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
+    res.status(500);
+    res.json({
+        error: {
+            name: error.name,
+            message: error.message,
+        },
+    });
+});
+
 /**
  * @description sets port 3000 to default or unless otherwise specified in the environment
  */
