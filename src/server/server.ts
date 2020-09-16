@@ -77,11 +77,6 @@ app.use((req: express.Request, res: express.Response, next: express.NextFunction
 });
 
 /**
- * @description express.Application Routes
- */
-const router: express.Router = express.Router();
-
-/**
  * Forwards any requests to the /v1/auth URI to AuthUserRouter.
  * @name /v1/users
  * @function
@@ -124,13 +119,6 @@ app.use((req: express.Request, res: express.Response) => {
         },
     });
 });
-
-/**
- * @function
- * @inner
- * @param {express.Router}
- */
-app.use(router);
 
 app.use((error: ValidationError, req: express.Request, res: express.Response, next: express.NextFunction) => {
     res.status(error.status || 500).json({
