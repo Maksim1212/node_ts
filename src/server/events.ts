@@ -1,4 +1,3 @@
-import { Address } from 'cluster';
 import * as http from 'http';
 
 /**
@@ -33,8 +32,7 @@ export function onError(error: NodeJS.ErrnoException, port: number | string): vo
  * @description log port to console
  */
 export function onListening(): void {
-    const addr: Address = this.address();
-    const bindPort: string = typeof addr === 'string' ? `pipe ${addr}` : `port ${addr.port}`;
+    const bindPort = `port ${process.env.PORT || 3000}`;
 
     // eslint-disable-next-line no-console
     console.log(`Listening on ${bindPort}`);

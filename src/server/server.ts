@@ -135,6 +135,6 @@ app.use((error: ValidationError, req: express.Request, res: express.Response, ne
 /**
  * @description sets port 3000 to default or unless otherwise specified in the environment
  */
-app.set('port', process.env.PORT || 3000);
+app.listen(process.env.PORT || 3000);
 
 export default app;
