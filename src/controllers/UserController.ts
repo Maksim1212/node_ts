@@ -1,26 +1,14 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
-import * as jwt from 'jsonwebtoken';
 import validateData from '../middleware/isValid';
+import getJWTTokens from '../helpers/getJWTTokens';
 import { User, getUserMainFields } from '../models/User';
-import { UpdateData, Tokens, Password } from '../interfaces/UserModelInterface';
-import { serviceConfig } from '../config/config';
+import { UpdateData, Password } from '../interfaces/UserModelInterface';
 
 const saltRounds = 10;
 const userNotFound = 'This Email not found';
 const wrongPassword = 'Wrong Password';
-
-export async function getJWTTokens(user: number): Promise<Tokens> {
-    const accessToken = jwt.sign({ user }, serviceConfig.jwt.accessSecret, { expiresIn: 86400 });
-    const refreshToken = jwt.sign({ user }, serviceConfig.jwt.refreshSecret, { expiresIn: '15d' });
-    const userRefreshToken = { refreshToken };
-    await getRepository(User).update(user, userRefreshToken);
-    return {
-        accessToken,
-        refreshToken,
-    };
-}
 
 export async function createUser(req: Request, res: Response): Promise<Response> {
     validateData(req);

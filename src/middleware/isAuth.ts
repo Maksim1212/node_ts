@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
 import { User } from '../models/User';
-import { getJWTTokens } from '../controllers/UserController';
+import getJWTTokens from '../helpers/getJWTTokens';
 import { Tokens } from '../interfaces/UserModelInterface';
 import { serviceConfig } from '../config/config';
 
