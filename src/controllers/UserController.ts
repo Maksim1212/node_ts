@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
-import validateData from '../middleware/isValid';
+// import validateData from '../middleware/isValid';
 import getJWTTokens from '../helpers/getJWTTokens';
 import { User, getUserMainFields } from '../models/User';
 import { UpdateData, Password } from '../interfaces/UserModelInterface';
@@ -11,7 +11,7 @@ const userNotFound = 'This Email not found';
 const wrongPassword = 'Wrong Password';
 
 export async function createUser(req: Request, res: Response): Promise<Response> {
-    validateData(req);
+    // validateData(req);
 
     req.body.password = await bcrypt.hash(req.body.password, saltRounds);
     const newUser = getRepository(User).create(req.body);
@@ -20,7 +20,7 @@ export async function createUser(req: Request, res: Response): Promise<Response>
 }
 
 export async function login(req: Request, res: Response): Promise<Response> {
-    validateData(req);
+    // validateData(req);
 
     const user = await getRepository(User).findOne({ where: { email: req.body.email } });
     if (!user) {
@@ -52,7 +52,7 @@ export async function login(req: Request, res: Response): Promise<Response> {
 }
 
 export async function updateUserPass(req: Request, res: Response): Promise<Response> {
-    validateData(req);
+    // validateData(req);
 
     const updatingUser = await getRepository(User).findOne({ where: { email: req.body.email } });
 
@@ -78,7 +78,7 @@ export async function updateUserPass(req: Request, res: Response): Promise<Respo
 }
 
 export async function getUserFromID(req: Request, res: Response): Promise<Response> {
-    validateData(req);
+    // validateData(req);
 
     const user = await getRepository(User).findOne(req.params.id);
     const { name } = user;
@@ -86,7 +86,7 @@ export async function getUserFromID(req: Request, res: Response): Promise<Respon
 }
 
 export async function logout(req: Request, res: Response): Promise<Response> {
-    validateData(req);
+    // validateData(req);
 
     const userData: UpdateData = { refreshToken: 'null' };
     const userId = req.body.user_id;

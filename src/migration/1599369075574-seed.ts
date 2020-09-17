@@ -1,18 +1,35 @@
 /* eslint-disable no-await-in-loop */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable import/prefer-default-export */
-import { MigrationInterface, QueryRunner } from 'typeorm';
+import { MigrationInterface, QueryRunner, getRepository } from 'typeorm';
+import Post from '../models/Post';
+// import Post from '../models/Post';
 
 export class Seed1599369075574 implements MigrationInterface {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     public async up(queryRunner: QueryRunner): Promise<void> {
-        for (let i = 0; i < 5; i += 1) {
-            await queryRunner.query(
-                `INSERT INTO post(title,author_id,author_name,body,likes) VALUES ('TEST',1,'TEST','test test test','["1","2","3"]')`,
-            );
-            await queryRunner.query(
-                `INSERT INTO comment(author_id,body,likes,post_id) VALUES (1,'test test test','["1","2","3"]',1)`,
-            );
-        }
+        // const post = getRepository(Post).create({
+        //     title: 'rrr',
+        //     author_id: 1,
+        //     author_name: 'rrr',
+        //     body: 'rrr',
+        //     likes: ['1', '2', '4'],
+        // });
+        await getRepository(Post).save({
+            title: 'rrr',
+            author_id: 1,
+            author_name: 'rrr',
+            body: 'rrr',
+            likes: ['1', '2', '4'],
+        });
+        // for (let i = 0; i < 5; i += 1) {
+        //     await queryRunner.query(
+        //         `INSERT INTO post(title,author_id,author_name,body,likes) VALUES ('TEST',1,'TEST','test test test','["1","2","3"]')`,
+        //     );
+        //     await queryRunner.query(
+        //         `INSERT INTO comment(author_id,body,likes,post_id) VALUES (1,'test test test','["1","2","3"]',1)`,
+        //     );
+        // }
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {

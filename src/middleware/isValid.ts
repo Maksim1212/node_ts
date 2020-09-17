@@ -1,8 +1,8 @@
-import { Request } from 'express';
+import { Request, NextFunction } from 'express';
 import { validationResult } from 'express-validator';
 import ValidationError from '../error/ValidationError';
 
-export default function validateData(req: Request): void {
+export default function validateData(req: Request, res: Response, next: NextFunction): void {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         const message: string = errors.array()[0].msg;
@@ -11,4 +11,5 @@ export default function validateData(req: Request): void {
         const status = 400;
         throw new ValidationError(message, value, param, status);
     }
+    return next();
 }

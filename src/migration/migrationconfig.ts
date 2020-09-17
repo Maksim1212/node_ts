@@ -1,5 +1,8 @@
 import { ConnectionOptions } from 'typeorm';
 import { connectionConfig } from '../config/config';
+import Post from '../models/Post';
+
+const entities = [Post];
 
 const connectionOptions: ConnectionOptions = {
     type: 'mysql',
@@ -9,7 +12,7 @@ const connectionOptions: ConnectionOptions = {
     password: connectionConfig.password,
     database: connectionConfig.database,
     migrations: ['src/migration/**/*{.ts,.js}'],
-    entities: ['/src/models/**/*{.ts,.js}'],
+    entities,
     synchronize: true,
     cli: {
         migrationsDir: '/src/migration',
