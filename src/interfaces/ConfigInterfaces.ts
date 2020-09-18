@@ -4,11 +4,3 @@ export interface ServiceConfigInterface {
         accessSecret: string;
     };
 }
-
-export interface ConnectionConfigInterface {
-    host: string;
-    username: string;
-    password: string;
-    database: string;
-    port: number;
-}
