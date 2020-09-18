@@ -15,7 +15,7 @@ export class Seed1599369075574 implements MigrationInterface {
         //     body: 'rrr',
         //     likes: ['1', '2', '4'],
         // });
-        await getRepository(Post).save({
+        await getRepository('post').save({
             title: 'rrr',
             author_id: 1,
             author_name: 'rrr',

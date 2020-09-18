@@ -1,15 +1,18 @@
 import { body } from 'express-validator';
+import validateData from '../middleware/isValid';
 
 const createCommentValidation = [
-    body('author_id').isNumeric(),
-    body('post_id').isNumeric(),
-    body('body').isString().isLength({ min: 1, max: 1000 }),
-    body('accessToken').isString().isLength({ min: 100, max: 200 }),
+    body('author_id').isNumeric().trim(),
+    body('post_id').isNumeric().trim(),
+    body('body').isString().isLength({ min: 1, max: 1000 }).trim(),
+    body('accessToken').isString().isLength({ min: 100, max: 200 }).trim(),
+    validateData,
 ];
 const likeCommentValidation = [
-    body('id').isNumeric(),
-    body('user_id').isNumeric(),
-    body('accessToken').isString().isLength({ min: 100, max: 200 }),
+    body('id').isNumeric().trim(),
+    body('user_id').isNumeric().trim(),
+    body('accessToken').isString().isLength({ min: 100, max: 200 }).trim(),
+    validateData,
 ];
 
 export { createCommentValidation, likeCommentValidation };

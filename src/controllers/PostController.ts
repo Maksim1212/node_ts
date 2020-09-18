@@ -1,6 +1,5 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-// import validateData from '../middleware/isValid';
 import Post from '../models/Post';
 import { LikesData } from '../interfaces/LikesDataInterface';
 
@@ -10,30 +9,22 @@ export async function findAll(req: Request, res: Response): Promise<Response> {
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     const post = getRepository(Post).create(req.body);
     const results = await getRepository(Post).save(post);
     return res.json(results);
 }
 
 export async function findById(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     const post = await getRepository(Post).findOne(req.params.id);
     return res.status(200).json({ post });
 }
 
 export async function findByUserId(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     const posts = await getRepository(Post).find({ author_id: Number(req.params.id) });
     return res.status(200).json({ posts });
 }
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     await getRepository(Post).update(req.body.id, req.body);
     return res.status(200).json({
         message: 'post updated successfully',
@@ -41,8 +32,6 @@ export async function updateById(req: Request, res: Response): Promise<Response>
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     await getRepository(Post).delete(req.body.id);
     return res.status(200).json({
         message: 'user deleted successfully',
@@ -50,8 +39,6 @@ export async function deleteById(req: Request, res: Response): Promise<Response>
 }
 
 export async function addLike(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     const postData = await getRepository(Post).findOneOrFail(req.body.post_id);
     let like: string;
     const likes = [];
@@ -73,8 +60,6 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sort(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     const { parametr } = req.body;
 
     const posts = await getRepository(Post).createQueryBuilder('post').orderBy('creation_time', parametr).getMany();
@@ -82,8 +67,6 @@ export async function sort(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sortByLikes(req: Request, res: Response): Promise<Response> {
-    // validateData(req);
-
     const { parametr } = req.body;
     const posts = await getRepository(Post).createQueryBuilder('post').orderBy('likes', parametr).getMany();
     return res.status(200).json(posts);
