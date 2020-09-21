@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsc --build",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "ts-node src/index.ts",
+        "start": "node ./build/server/index.js",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
         "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
         "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
@@ -22,7 +22,6 @@
     },
     "homepage": "https://github.com/Maksim1212/node_ts#readme",
     "dependencies": {
-        "@hapi/joi": "^17.1.1",
         "@types/jsonwebtoken": "^8.5.0",
         "bcrypt": "^5.0.0",
         "body-parser": "^1.19.0",
@@ -59,7 +58,7 @@
         "nodemon": "^2.0.4",
         "prettier": "^2.1.1",
         "ts-node": "3.3.0",
-        "typescript": "3.3.3333"
+        "typescript": "^3.3.3333"
     },
     "config": {
         "commitizen": {
