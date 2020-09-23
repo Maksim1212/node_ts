@@ -4,10 +4,8 @@ services:
     build: .
     depends_on:
       - 'mysqlDb'
-    # entrypoint: "./wait-for-it.sh mysqlDb:3306"
     ports:
       - "3000:3000"
-    # command: ["./wait-for-it.sh", "mysqlDb", "--", "npm", "start"]
   mysqlDb:
     image: mysql:8
     volumes:
