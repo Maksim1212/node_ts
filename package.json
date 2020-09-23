@@ -6,7 +6,7 @@
     "scripts": {
         "build": "tsc --build",
         "test": "echo \"Error: no test specified\" && exit 1",
-        "start": "node ./build/server/index.js",
+        "start": "sleep 10s && node ./build/server/index.js",
         "typeorm": "ts-node -r tsconfig-paths/register ./node_modules/typeorm/cli.js",
         "migration:run": "ts-node ./node_modules/typeorm/cli.js migration:run",
         "migration:revert": "ts-node ./node_modules/typeorm/cli.js migration:revert"
