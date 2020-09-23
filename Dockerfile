@@ -1,15 +1,19 @@
-FROM node:12
+FROM node:12-alpine
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
+COPY ormconfig_prod.json ./ormconfig.json
+
+COPY tsconfig.json ./
+
 RUN npm install
 
-# RUN npm run build
+COPY . . 
 
-COPY . .
+# RUN npm run build  
 
 EXPOSE 3000
 
-CMD [ "node", "./build/server/index.js" ]
+CMD [ "npm", "start" ]

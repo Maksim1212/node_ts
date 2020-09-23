@@ -1,20 +1,21 @@
 {
     "type": "mysql",
-    "host": "localhost",
+    "host": "mysqlDb",
     "port": 3306,
-    "username": "blogAdmin",
-    "password": "blogadmin",
+    "username": "root",
+    "password": "1472580369",
     "database": "blog",
     "synchronize": true,
+    "socketPath": "/Applications/MAMP/tmp/mysql/mysql.sock",
     "logging": false,
     "entities": [
-        "src/models/**/*.ts"
+        "./build/models/**/*.js"
     ],
     "migrations": [
-        "src/migration/**/*.ts"
+        "./build/migration/**/*.js"
     ],
     "cli": {
-        "entitiesDir": "src/models",
-        "migrationsDir": "src/migration"
+        "entitiesDir": "build/models",
+        "migrationsDir": "build/migration"
     }
 }
