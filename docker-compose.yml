@@ -6,6 +6,7 @@ services:
       - 'mysqlDb'
     ports:
       - "3000:3000"
+    # command: ["./wait-for-it.sh", "mysqlDb", "--", "npm", "start"]
   mysqlDb:
     image: mysql:8
     volumes:
