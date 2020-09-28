@@ -18,6 +18,9 @@ export class User {
 
     @Column({ type: 'varchar', default: null })
     refreshToken: string;
+
+    @Column({ type: 'boolean', default: false })
+    is_admin: boolean;
 }
 
 export function getUserMainFields(user: UserMain): UserMain {

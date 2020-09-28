@@ -28,6 +28,7 @@ const likePostValidation = [
 
 const deletePostValidation = [
     body('id').isNumeric(),
+    body('user_id').isNumeric(),
     body('accessToken').isString().isLength({ min: 100, max: 200 }),
     validateData,
 ];

@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Comment from '../models/Comment';
+import { User } from '../models/User';
 import { LikesData } from '../interfaces/LikesDataInterface';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
@@ -39,5 +40,19 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 
     return res.status(422).json({
         message: 'you have already liked this post',
+    });
+}
+
+export async function deleteById(req: Request, res: Response): Promise<Response> {
+    const user = await getRepository(User).findOne({ where: { id: req.body.user_id } });
+    const comment = await getRepository(Comment).findOne(req.params.id);
+    if (user.is_admin === true || Number(comment.author_id) === user.id) {
+        await getRepository(Comment).delete(req.body.id);
+        return res.status(200).json({
+            message: 'comment deleted successfully',
+        });
+    }
+    return res.status(403).json({
+        message: 'you are do not have permissions to perform this operation',
     });
 }

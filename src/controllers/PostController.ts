@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
 import Post from '../models/Post';
+import { User } from '../models/User';
 import { LikesData } from '../interfaces/LikesDataInterface';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
@@ -32,9 +33,16 @@ export async function updateById(req: Request, res: Response): Promise<Response>
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    await getRepository(Post).delete(req.body.id);
-    return res.status(200).json({
-        message: 'user deleted successfully',
+    const user = await getRepository(User).findOne({ where: { id: req.body.user_id } });
+    const post = await getRepository(Post).findOne(req.params.id);
+    if (user.is_admin === true || Number(post.author_id) === user.id) {
+        await getRepository(Post).delete(req.body.id);
+        return res.status(200).json({
+            message: 'post deleted successfully',
+        });
+    }
+    return res.status(403).json({
+        message: 'you are do not have permissions to perform this operation',
     });
 }
 

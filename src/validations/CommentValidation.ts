@@ -15,4 +15,11 @@ const likeCommentValidation = [
     validateData,
 ];
 
-export { createCommentValidation, likeCommentValidation };
+const deleteCommentValidation = [
+    body('id').isNumeric(),
+    body('user_id').isNumeric(),
+    body('accessToken').isString().isLength({ min: 100, max: 200 }),
+    validateData,
+]
+
+export { createCommentValidation, likeCommentValidation, deleteCommentValidation };
