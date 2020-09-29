@@ -12,6 +12,7 @@ export class CreatePostSchema1600427054545 implements MigrationInterface {
                         name: 'id',
                         type: 'int',
                         isPrimary: true,
+                        isGenerated: true,
                     },
                     {
                         name: 'author_id',

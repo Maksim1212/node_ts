@@ -12,6 +12,7 @@ export class CreateUserSchema1600427035566 implements MigrationInterface {
                         name: 'id',
                         type: 'int',
                         isPrimary: true,
+                        isGenerated: true,
                     },
                     {
                         name: 'name',
