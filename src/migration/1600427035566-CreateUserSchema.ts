@@ -39,6 +39,11 @@ export class CreateUserSchema1600427035566 implements MigrationInterface {
                         type: 'timestamp',
                         default: 'now()',
                     },
+                    {
+                        name: 'is_admin',
+                        type: 'boolean',
+                        default: false,
+                    },
                 ],
             }),
         );
