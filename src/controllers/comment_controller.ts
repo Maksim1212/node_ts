@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
-import Comment from '../models/Comment';
-import { User } from '../models/User';
-import { LikesData } from '../interfaces/LikesDataInterface';
+import Comment from '../entities/comment';
+import { User } from '../entities/user';
+import { LikesData } from '../interfaces/likes_data_interface';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const comments = await getRepository(Comment).find();

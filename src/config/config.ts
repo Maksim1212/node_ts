@@ -1,4 +1,4 @@
-import { ServiceConfigInterface } from '../interfaces/ConfigInterfaces';
+import { ServiceConfigInterface } from '../interfaces/config_interfaces';
 
 export const serviceConfig: ServiceConfigInterface = {
     jwt: {

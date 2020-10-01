@@ -6,12 +6,12 @@ import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as session from 'express-session';
 import { createConnection } from 'typeorm';
-import AuthUserRouter from '../routes/UserRouter';
-import PostRouter from '../routes/PostRouter';
-import CommentRouter from '../routes/CommentRouter';
+import AuthUserRouter from '../routes/user_router';
+import PostRouter from '../routes/post_router';
+import CommentRouter from '../routes/comment_router';
 import 'reflect-metadata';
 import { sessionSecret } from '../config/config';
-import ValidationError from '../error/ValidationError';
+import ValidationError from '../error/validation_error';
 
 /**
  * @type {express}

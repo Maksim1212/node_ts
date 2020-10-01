@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import validateData from '../middleware/isValid';
+import validateData from '../middleware/is_valid';
 
 const loginValidation = [
     body('email').isEmail().trim(),

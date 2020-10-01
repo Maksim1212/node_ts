@@ -1,13 +1,13 @@
 import { Router } from 'express';
 import * as asyncHandler from 'express-async-handler';
-import * as AuthUserComponent from '../controllers/UserController';
-import Auth from '../middleware/isAuth';
+import * as AuthUserComponent from '../controllers/user_controller';
+import Auth from '../middleware/is_auth';
 import {
     loginValidation,
     logoutValidation,
     createUserValidation,
     updateValidation,
-} from '../validations/UserValidation';
+} from '../validations/user_validation';
 
 const authUserRouter = Router();
 

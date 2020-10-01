@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-import { UserMain } from '../interfaces/UserModelInterface';
+import { UserMain } from '../interfaces/user_model_interface';
 
 @Entity()
 export class User {

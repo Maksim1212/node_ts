@@ -1,5 +1,5 @@
 import { body } from 'express-validator';
-import validateData from '../middleware/isValid';
+import validateData from '../middleware/is_valid';
 
 const sortPostValidation = [body('parametr').isString().isLength({ min: 3, max: 4 }), validateData];
 const sortByLikesValidation = [body('parametr').isString().isLength({ min: 3, max: 4 }), validateData];

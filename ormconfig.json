@@ -9,13 +9,13 @@
     "socketPath": "/Applications/MAMP/tmp/mysql/mysql.sock",
     "logging": false,
     "entities": [
-        "./src/models/**/*.ts"
+        "./src/entities/**/*.ts"
     ],
     "migrations": [
         "./src/migration/**/*.ts"
     ],
     "cli": {
-        "entitiesDir": "src/models",
+        "entitiesDir": "src/entities",
         "migrationsDir": "src/migration"
     }
 }

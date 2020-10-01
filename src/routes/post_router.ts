@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import * as asyncHandler from 'express-async-handler';
-import * as PostComponent from '../controllers/PostController';
+import * as PostComponent from '../controllers/post_controller';
 import {
     sortPostValidation,
     sortByLikesValidation,
@@ -8,8 +8,8 @@ import {
     updatePostValidation,
     likePostValidation,
     deletePostValidation,
-} from '../validations/PostValidation';
-import Auth from '../middleware/isAuth';
+} from '../validations/post_validation';
+import Auth from '../middleware/is_auth';
 
 const postRouter = Router();
 

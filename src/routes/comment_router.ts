@@ -1,12 +1,12 @@
 import { Router } from 'express';
 import * as asyncHandler from 'express-async-handler';
-import * as CommentComponent from '../controllers/CommentController';
-import Auth from '../middleware/isAuth';
+import * as CommentComponent from '../controllers/comment_controller';
+import Auth from '../middleware/is_auth';
 import {
     createCommentValidation,
     likeCommentValidation,
     deleteCommentValidation,
-} from '../validations/CommentValidation';
+} from '../validations/comment_validation';
 
 const commentRouter = Router();
 

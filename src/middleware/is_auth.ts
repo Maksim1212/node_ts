@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import { User } from '../models/User';
-import getJWTTokens from '../helpers/getJWTTokens';
-import { Tokens } from '../interfaces/UserModelInterface';
+import { User } from '../entities/user';
+import getJWTTokens from '../helpers/get_jwt_tokens';
+import { Tokens } from '../interfaces/user_model_interface';
 import { serviceConfig } from '../config/config';
 
 export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<unknown> {

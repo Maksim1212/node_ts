@@ -1,8 +1,8 @@
 import * as jwt from 'jsonwebtoken';
 import { getRepository } from 'typeorm';
-import { User } from '../models/User';
+import { User } from '../entities/user';
 import { serviceConfig } from '../config/config';
-import { Tokens } from '../interfaces/UserModelInterface';
+import { Tokens } from '../interfaces/user_model_interface';
 
 export default async function getJWTTokens(user: number): Promise<Tokens> {
     const accessToken = jwt.sign({ user }, serviceConfig.jwt.accessSecret, { expiresIn: 86400 });

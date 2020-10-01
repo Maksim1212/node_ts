@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
 import * as bcrypt from 'bcrypt';
 import { getRepository } from 'typeorm';
-import getJWTTokens from '../helpers/getJWTTokens';
-import { User, getUserMainFields } from '../models/User';
-import { UpdateData, Password } from '../interfaces/UserModelInterface';
+import getJWTTokens from '../helpers/get_jwt_tokens';
+import { User, getUserMainFields } from '../entities/user';
+import { UpdateData, Password } from '../interfaces/user_model_interface';
 
 const saltRounds = 10;
 const userNotFound = 'This Email not found';
