@@ -1,14 +1,12 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
 
-import Comment from '../entities/comment';
-import { User } from '../entities/user';
 import { LikesData } from '../interfaces/likes_data_interface';
 import * as CommentService from '../services/comment_service';
 import * as UserService from '../services/user_service';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const comments = await CommentService.findAll();
+    console.log(comments);
     return res.status(200).json({ comments });
 }
 
@@ -46,10 +44,10 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    const user = await UserService.(req.body.user_id);
-    const comment = await getRepository(Comment).findOne(req.params.id);
+    const user = await UserService.findOne(req.body.user_id);
+    const comment = await CommentService.findOne(req.params.id);
     if (user.is_admin === true || Number(comment.author_id) === user.id) {
-        await getRepository(Comment).delete(req.body.id);
+        await CommentService.deleteById(req.body.id);
         return res.status(200).json({
             message: 'comment deleted successfully',
         });
