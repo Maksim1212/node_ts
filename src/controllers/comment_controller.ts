@@ -1,29 +1,31 @@
 import { Request, Response } from 'express';
 import { getRepository } from 'typeorm';
+
 import Comment from '../entities/comment';
 import { User } from '../entities/user';
 import { LikesData } from '../interfaces/likes_data_interface';
+import * as CommentService from '../services/comment_service';
+import * as UserService from '../services/user_service';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
-    const comments = await getRepository(Comment).find();
+    const comments = await CommentService.findAll();
     return res.status(200).json({ comments });
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-    const comment = getRepository(Comment).create(req.body);
-    await getRepository(Comment).save(comment);
+    await CommentService.create(req.body);
     return res.status(200).json({
         message: 'comment added successfully',
     });
 }
 
 export async function findByPostId(req: Request, res: Response): Promise<Response> {
-    const comments = await getRepository(Comment).findOneOrFail(req.params.id);
+    const comments = await CommentService.findByPostId(req.params.id);
     return res.status(200).json({ comments });
 }
 
 export async function addLike(req: Request, res: Response): Promise<Response> {
-    const commentData = await getRepository(Comment).findOneOrFail(req.body.id);
+    const commentData = await CommentService.findByPostId(req.body.id);
     let like: string;
     const likes = [];
     if (commentData.likes !== null) {
@@ -33,8 +35,8 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
     if (like === undefined) {
         likes.push(req.body.user_id);
         const likesData: LikesData = { likes };
-        await getRepository(Comment).update(req.body.id, likesData);
-        const data = await getRepository(Comment).findOne(req.body.id);
+        await CommentService.updateComment(req.body.id, likesData);
+        const data = await CommentService.findOne(req.body.id);
         return res.status(200).json({ data });
     }
 
@@ -44,7 +46,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    const user = await getRepository(User).findOne({ where: { id: req.body.user_id } });
+    const user = await UserService.(req.body.user_id);
     const comment = await getRepository(Comment).findOne(req.params.id);
     if (user.is_admin === true || Number(comment.author_id) === user.id) {
         await getRepository(Comment).delete(req.body.id);
