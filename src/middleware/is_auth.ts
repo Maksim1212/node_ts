@@ -1,10 +1,9 @@
 import { Request, Response, NextFunction } from 'express';
 import * as jwt from 'jsonwebtoken';
-import { getRepository } from 'typeorm';
-import { User } from '../entities/user';
 import getJWTTokens from '../helpers/get_jwt_tokens';
 import { Tokens } from '../interfaces/user_model_interface';
 import { serviceConfig } from '../config/config';
+import * as UserService from '../services/user_service';
 
 export default async function isAuthJWT(req: Request, res: Response, next: NextFunction): Promise<unknown> {
     let tokens: Tokens;
@@ -18,7 +17,7 @@ export default async function isAuthJWT(req: Request, res: Response, next: NextF
             decoded.push(...Object.values(jwt.decode(req.body.accessToken)));
             const userId: number = decoded[0];
             tokens = await getJWTTokens(userId);
-            const user = await getRepository(User).findOne(userId);
+            const user = await UserService.findByUserId(userId);
             const { accessToken } = tokens;
             req.body.accessToken = accessToken;
             const token = req.body.accessToken;
