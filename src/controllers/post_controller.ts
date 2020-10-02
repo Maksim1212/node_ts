@@ -1,53 +1,54 @@
 import { Request, Response } from 'express';
-import { getRepository } from 'typeorm';
-import Post from '../entities/post';
-import { User } from '../entities/user';
+
 import { LikesData } from '../interfaces/likes_data_interface';
+import * as PostService from '../services/post_service';
+import * as UserService from '../services/user_service';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
-    const posts = await getRepository(Post).find();
+    const posts = await PostService.findAll();
     return res.status(200).json(posts);
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-    const post = getRepository(Post).create(req.body);
-    const results = await getRepository(Post).save(post);
+    const results = await PostService.cretePost(req.body);
     return res.json(results);
 }
 
 export async function findById(req: Request, res: Response): Promise<Response> {
-    const post = await getRepository(Post).findOne(req.params.id);
+    const post = await PostService.findByPostId(req.params.id);
     return res.status(200).json({ post });
 }
 
 export async function findByUserId(req: Request, res: Response): Promise<Response> {
-    const posts = await getRepository(Post).find({ author_id: Number(req.params.id) });
+    const posts = await PostService.findByUserId(Number(req.params.id));
     return res.status(200).json({ posts });
 }
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
-    await getRepository(Post).update(req.body.id, req.body);
+    await PostService.updatePostById(req.body.id, req.body);
     return res.status(200).json({
         message: 'post updated successfully',
     });
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    const user = await getRepository(User).findOne({ where: { id: req.body.user_id } });
-    const post = await getRepository(Post).findOne(req.params.id);
+    const user = await UserService.findByUserId(req.body.user_id);
+    const post = await PostService.findByPostId(req.params.id);
+
     if (user.is_admin === true || Number(post.author_id) === user.id) {
-        await getRepository(Post).delete(req.body.id);
+        await PostService.deletePost(req.body.id);
         return res.status(200).json({
             message: 'post deleted successfully',
         });
     }
+
     return res.status(403).json({
         message: 'you are do not have permissions to perform this operation',
     });
 }
 
 export async function addLike(req: Request, res: Response): Promise<Response> {
-    const postData = await getRepository(Post).findOneOrFail(req.body.post_id);
+    const postData = await PostService.findOrfail(req.body.post_id);
     let like: string;
     const likes = [];
     if (postData.likes !== null) {
@@ -57,8 +58,8 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
     if (like === undefined) {
         likes.push(req.body.user_id);
         const likesData: LikesData = { likes };
-        await getRepository(Post).update(req.body.post_id, likesData);
-        const data = await getRepository(Post).findOne(req.body.post_id);
+        await PostService.updatePostById(req.body.post_id, likesData);
+        const data = await PostService.findByPostId(req.body.post_id);
         return res.status(200).json({ data });
     }
 
@@ -68,14 +69,14 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sort(req: Request, res: Response): Promise<Response> {
-    const { parametr } = req.body;
+    const { sortingParametr } = req.body;
 
-    const posts = await getRepository(Post).createQueryBuilder('post').orderBy('creation_time', parametr).getMany();
+    const posts = await PostService.sortByDate(sortingParametr);
     return res.status(200).json(posts);
 }
 
 export async function sortByLikes(req: Request, res: Response): Promise<Response> {
-    const { parametr } = req.body;
-    const posts = await getRepository(Post).createQueryBuilder('post').orderBy('likes', parametr).getMany();
+    const { sortingParametr } = req.body;
+    const posts = await PostService.sortByLikes(sortingParametr);
     return res.status(200).json(posts);
 }
