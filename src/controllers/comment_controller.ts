@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { LikesData } from '../interfaces/likes_data_interface';
+import LikesData from '../interfaces/likes_data_interface';
 import * as CommentService from '../services/comment_service';
 import * as UserService from '../services/user_service';
 
@@ -11,6 +11,7 @@ export async function findAll(req: Request, res: Response): Promise<Response> {
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
+
     await CommentService.create(req.body);
     return res.status(200).json({
         message: 'comment added successfully',
@@ -44,7 +45,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    const user = await UserService.findOne(req.body.user_id);
+    const user = await UserService.findByUserId(req.body.user_id);
     const comment = await CommentService.findOne(Number(req.params.id));
     if (user.is_admin === true || Number(comment.author_id) === user.id) {
         await CommentService.deleteById(req.body.id);

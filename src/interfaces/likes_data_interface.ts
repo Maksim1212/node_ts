@@ -1,3 +1,3 @@
-export interface LikesData {
+export default interface LikesData {
     likes: string[];
 }

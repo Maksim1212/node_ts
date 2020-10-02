@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
 
-import { LikesData } from '../interfaces/likes_data_interface';
+import LikesData from '../interfaces/likes_data_interface';
 import * as PostService from '../services/post_service';
 import * as UserService from '../services/user_service';
 
@@ -15,7 +15,7 @@ export async function create(req: Request, res: Response): Promise<Response> {
 }
 
 export async function findById(req: Request, res: Response): Promise<Response> {
-    const post = await PostService.findByPostId(req.params.id);
+    const post = await PostService.findByPostId(Number(req.params.id));
     return res.status(200).json({ post });
 }
 
@@ -25,6 +25,7 @@ export async function findByUserId(req: Request, res: Response): Promise<Respons
 }
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
+    console.log(req.body);
     await PostService.updatePostById(req.body.id, req.body);
     return res.status(200).json({
         message: 'post updated successfully',
@@ -33,10 +34,10 @@ export async function updateById(req: Request, res: Response): Promise<Response>
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
     const user = await UserService.findByUserId(req.body.user_id);
-    const post = await PostService.findByPostId(req.params.id);
+    const post = await PostService.findByPostId(Number(req.params.id));
 
     if (user.is_admin === true || Number(post.author_id) === user.id) {
-        await PostService.deletePost(req.body.id);
+        console.log(await PostService.deletePost(req.body.id));
         return res.status(200).json({
             message: 'post deleted successfully',
         });
@@ -69,8 +70,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function sort(req: Request, res: Response): Promise<Response> {
-    const { sortingParametr } = req.body;
-
+    const sortingParametr = req.body.parametr;
     const posts = await PostService.sortByDate(sortingParametr);
     return res.status(200).json(posts);
 }

@@ -1,28 +1,31 @@
-interface AllComments {
+interface GetAllPosts {
     [index: number]: {
         id: number;
         author_id: number;
+        author_name: string;
+        title: string;
         body: string;
         likes: string[];
-        post_id: number;
         creation_time: Date;
     };
 }
 
-interface OneComment {
-    id: number;
+interface OnePost {
     author_id: number;
+    author_name: string;
+    title: string;
     body: string;
     likes: string[];
-    post_id: number;
+    id: number;
     creation_time: Date;
 }
 
-interface CommentData {
-    post_id: number;
+interface PostData {
+    title: string;
     body: string;
     author_id: number;
+    author_name: string;
     accessToken: string;
 }
 
-export { AllComments, OneComment, CommentData };
+export { GetAllPosts, OnePost, PostData };
