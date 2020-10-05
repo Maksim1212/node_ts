@@ -1,4 +1,4 @@
-import { body } from 'express-validator';
+import { body, query } from 'express-validator';
 import validateData from '../middleware/is_valid';
 
 const sortPostValidation = [body('parametr').isString().isLength({ min: 3, max: 4 }), validateData];
@@ -11,6 +11,8 @@ const createPostValidation = [
     body('accessToken').isString().isLength({ min: 100, max: 200 }).trim(),
     validateData,
 ];
+
+const getOnePostValidation = [query('id').isNumeric().trim()];
 
 const updatePostValidation = [
     body('id').isNumeric(),
@@ -40,4 +42,5 @@ export {
     updatePostValidation,
     likePostValidation,
     deletePostValidation,
+    getOnePostValidation,
 };

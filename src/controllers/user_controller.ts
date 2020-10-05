@@ -71,7 +71,7 @@ export async function updateUserPass(req: Request, res: Response): Promise<Respo
 }
 
 export async function getUserFromID(req: Request, res: Response): Promise<Response> {
-    const user = await UserService.findByUserId(Number(req.params.id));
+    const user = await UserService.findByUserId(Number(req.query.id));
     const { name } = user;
     return res.status(200).json({ name });
 }

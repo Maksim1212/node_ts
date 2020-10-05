@@ -8,6 +8,7 @@ import {
     updatePostValidation,
     likePostValidation,
     deletePostValidation,
+    getOnePostValidation,
 } from '../validations/post_validation';
 import Auth from '../middleware/is_auth';
 
@@ -15,9 +16,9 @@ const postRouter = Router();
 
 postRouter.get('/', asyncHandler(PostComponent.findAll));
 
-postRouter.get('/:id', asyncHandler(PostComponent.findById));
+postRouter.get('/:id', getOnePostValidation, asyncHandler(PostComponent.findById));
 
-postRouter.get('/user/:id', asyncHandler(PostComponent.findByUserId));
+postRouter.get('/user/:id', getOnePostValidation, asyncHandler(PostComponent.findByUserId));
 
 postRouter.post('/sort', sortPostValidation, asyncHandler(PostComponent.sort));
 

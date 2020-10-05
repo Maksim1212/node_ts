@@ -15,12 +15,12 @@ export async function create(req: Request, res: Response): Promise<Response> {
 }
 
 export async function findById(req: Request, res: Response): Promise<Response> {
-    const post = await PostService.findByPostId(Number(req.params.id));
+    const post = await PostService.findByPostId(Number(req.query.id));
     return res.status(200).json({ post });
 }
 
 export async function findByUserId(req: Request, res: Response): Promise<Response> {
-    const posts = await PostService.findByUserId(Number(req.params.id));
+    const posts = await PostService.findByUserId(Number(req.query.id));
     return res.status(200).json({ posts });
 }
 
