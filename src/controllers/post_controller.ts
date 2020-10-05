@@ -25,10 +25,17 @@ export async function findByUserId(req: Request, res: Response): Promise<Respons
 }
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
-    console.log(req.body);
-    await PostService.updatePostById(req.body.id, req.body);
-    return res.status(200).json({
-        message: 'post updated successfully',
+    const user = await UserService.findByUserId(req.body.author_id);
+    const post = await PostService.findByPostId(Number(req.body.id));
+
+    if (user.is_admin === true || Number(post.author_id) === user.id) {
+        await PostService.updatePostById(req.body.id, req.body);
+        return res.status(200).json({
+            message: 'post updated successfully',
+        });
+    }
+    return res.status(403).json({
+        message: 'you are do not have permissions to perform this operation',
     });
 }
 
