@@ -6,12 +6,10 @@ import * as UserService from '../services/user_service';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const comments = await CommentService.findAll();
-    console.log(comments);
     return res.status(200).json({ comments });
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-
     await CommentService.create(req.body);
     return res.status(200).json({
         message: 'comment added successfully',
