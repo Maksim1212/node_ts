@@ -2,7 +2,6 @@ import { Request, Response } from 'express';
 
 import LikesData from '../interfaces/likes_data_interface';
 import * as PostService from '../services/post_service';
-import * as UserService from '../services/user_service';
 import isAdmin from '../middleware/is_admin';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
@@ -44,8 +43,8 @@ export async function deleteById(req: Request, res: Response): Promise<Response>
     const id = Number(req.body.user_id);
     const post = await PostService.findByPostId(Number(req.params.id));
 
-    if ((await isAdmin(id)) === true || Number(post.author_id) === req.body.user_id) {
-        console.log(await PostService.deletePost(req.body.id));
+    if ((await isAdmin(id)) || Number(post.author_id) === req.body.user_id) {
+        await PostService.deletePost(req.body.id);
         return res.status(200).json({
             message: 'post deleted successfully',
         });
