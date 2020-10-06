@@ -26,9 +26,9 @@ export async function findByUserId(req: Request, res: Response): Promise<Respons
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
     const id = Number(req.body.author_id);
-    const post = await PostService.findByPostId(Number(req.body.id));
+    const post = await PostService.findOrfail(Number(req.body.id));
 
-    if ((await isAdmin(id)) === true || Number(post.author_id) === req.body.author_id) {
+    if ((await isAdmin(id)) || post.author_id === req.body.author_id) {
         await PostService.updatePostById(req.body.id, req.body);
         return res.status(200).json({
             message: 'post updated successfully',
@@ -43,7 +43,7 @@ export async function deleteById(req: Request, res: Response): Promise<Response>
     const id = Number(req.body.user_id);
     const post = await PostService.findByPostId(Number(req.params.id));
 
-    if ((await isAdmin(id)) || Number(post.author_id) === req.body.user_id) {
+    if ((await isAdmin(id)) || post.author_id === req.body.user_id) {
         await PostService.deletePost(req.body.id);
         return res.status(200).json({
             message: 'post deleted successfully',

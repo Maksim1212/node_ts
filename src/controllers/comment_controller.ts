@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 
 import LikesData from '../interfaces/likes_data_interface';
 import * as CommentService from '../services/comment_service';
-import * as UserService from '../services/user_service';
+import isAdmin from '../middleware/is_admin';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const comments = await CommentService.findAll();
@@ -43,9 +43,9 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 }
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
-    const user = await UserService.findByUserId(req.body.user_id);
+    const user = await isAdmin(req.body.user_id);
     const comment = await CommentService.findOne(Number(req.params.id));
-    if (user.is_admin === true || Number(comment.author_id) === user.id) {
+    if (user || Number(comment.author_id) === req.body.user_id) {
         await CommentService.deleteById(req.body.id);
         return res.status(200).json({
             message: 'comment deleted successfully',
