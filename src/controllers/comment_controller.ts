@@ -3,7 +3,6 @@ import { Request, Response } from 'express';
 import LikesData from '../interfaces/likes_data_interface';
 import * as CommentService from '../services/comment_service';
 import isAdmin from '../middleware/is_admin';
-import commentSeed from '../seeds/comments_seed';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const comments = await CommentService.findAll();
@@ -30,7 +29,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
         like = commentData.likes.find((id) => id === `${req.body.user_id}`);
         likes.push(...commentData.likes);
     }
-    if (like === undefined) {
+    if (!like) {
         likes.push(req.body.user_id);
         const likesData: LikesData = { likes };
         await CommentService.updateComment(req.body.id, likesData);

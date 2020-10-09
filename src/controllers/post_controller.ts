@@ -63,7 +63,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
         like = postData.likes.find((id) => id === `${req.body.user_id}`);
         likes.push(...postData.likes);
     }
-    if (like === undefined) {
+    if (!like) {
         likes.push(req.body.user_id);
         const likesData: LikesData = { likes };
         await PostService.updatePostById(req.body.post_id, likesData);
