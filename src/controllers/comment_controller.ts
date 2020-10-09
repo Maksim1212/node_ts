@@ -3,6 +3,7 @@ import { Request, Response } from 'express';
 import LikesData from '../interfaces/likes_data_interface';
 import * as CommentService from '../services/comment_service';
 import isAdmin from '../middleware/is_admin';
+import commentSeed from '../seeds/comments_seed';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const comments = await CommentService.findAll();
@@ -17,12 +18,12 @@ export async function create(req: Request, res: Response): Promise<Response> {
 }
 
 export async function findByPostId(req: Request, res: Response): Promise<Response> {
-    const comments = await CommentService.findByPostId(Number(req.params.id));
+    const comments = await CommentService.findByPostId(Number(req.query.id));
     return res.status(200).json({ comments });
 }
 
 export async function addLike(req: Request, res: Response): Promise<Response> {
-    const commentData = await CommentService.findByPostId(req.body.id);
+    const commentData = await CommentService.findOne(req.body.id);
     let like: string;
     const likes = [];
     if (commentData.likes !== null) {
@@ -33,7 +34,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
         likes.push(req.body.user_id);
         const likesData: LikesData = { likes };
         await CommentService.updateComment(req.body.id, likesData);
-        const data = await CommentService.findOne(req.body.id);
+        const data = await CommentService.findOne(+req.body.id);
         return res.status(200).json({ data });
     }
 
@@ -44,9 +45,9 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
 
 export async function deleteById(req: Request, res: Response): Promise<Response> {
     const user = await isAdmin(req.body.user_id);
-    const comment = await CommentService.findOne(Number(req.params.id));
+    const comment = await CommentService.findOne(Number(req.body.id));
     if (user || Number(comment.author_id) === req.body.user_id) {
-        await CommentService.deleteById(req.body.id);
+        await CommentService.deleteById(+req.body.id);
         return res.status(200).json({
             message: 'comment deleted successfully',
         });

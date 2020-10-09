@@ -14,7 +14,7 @@ function create(data: CommentData): Promise<OneComment> {
 }
 
 function findByPostId(id: number): Promise<OneComment> {
-    return getRepository(Comment).findOneOrFail(id);
+    return getRepository(Comment).findOneOrFail({ post_id: id });
 }
 
 function updateComment(id: number, likesData: Likes): Promise<UpdateResult> {
@@ -22,7 +22,7 @@ function updateComment(id: number, likesData: Likes): Promise<UpdateResult> {
 }
 
 function findOne(id: number): Promise<OneComment> {
-    return getRepository(Comment).findOne(id);
+    return getRepository(Comment).findOneOrFail(id);
 }
 
 function deleteById(id: number): Promise<DeleteResult> {
