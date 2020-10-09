@@ -25,7 +25,7 @@ export async function addLike(req: Request, res: Response): Promise<Response> {
     const commentData = await CommentService.findOne(req.body.id);
     let like: string;
     const likes = [];
-    if (commentData.likes !== null) {
+    if (commentData.likes) {
         like = commentData.likes.find((id) => id === `${req.body.user_id}`);
         likes.push(...commentData.likes);
     }
