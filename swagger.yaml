@@ -90,91 +90,26 @@ paths:
         responses:
           default:
             description: "successful operation"
-  /user/logout:
-    get:
-      tags:
-      - "user"
-      summary: "Logs out current logged in user session"
-      description: ""
-      operationId: "logoutUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters: []
-      responses:
-        default:
-          description: "successful operation"
-  /user/{username}:
-    get:
-      tags:
-      - "user"
-      summary: "Get user by user Id"
-      description: ""
-      operationId: "getUserById"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "id"
-        in: "path"
-        description: "The name that needs to be fetched. Use user1 for testing. "
-        required: true
-        type: "string"
-      responses:
-        "200":
-          description: "successful operation"
+  /v1/auth/update:
+      put:
+        tags:
+        - "user"
+        summary: "Update user"
+        description: "Update user"
+        operationId: "updateUser"
+        produces:
+        - "application/xml"
+        - "application/json"
+        parameters:
+        - in: "body"
+          name: "body"
+          description: "Update user"
+          required: true
           schema:
-            $ref: "#/definitions/User"
-        "400":
-          description: "Invalid username supplied"
-        "404":
-          description: "User not found"
-    put:
-      tags:
-      - "user"
-      summary: "Updated user"
-      description: "This can only be done by the logged in user."
-      operationId: "updateUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "name that need to be updated"
-        required: true
-        type: "string"
-      - in: "body"
-        name: "body"
-        description: "Updated user object"
-        required: true
-        schema:
-          $ref: "#/definitions/User"
-      responses:
-        "400":
-          description: "Invalid user supplied"
-        "404":
-          description: "User not found"
-    delete:
-      tags:
-      - "user"
-      summary: "Delete user"
-      description: "This can only be done by the logged in user."
-      operationId: "deleteUser"
-      produces:
-      - "application/xml"
-      - "application/json"
-      parameters:
-      - name: "username"
-        in: "path"
-        description: "The name that needs to be deleted"
-        required: true
-        type: "string"
-      responses:
-        "400":
-          description: "Invalid username supplied"
-        "404":
-          description: "User not found"
+            $ref: "#/definitions/UpdateUser"
+        responses:
+          default:
+            description: "successful operation"
   /posts:
     get:
       tags:
@@ -328,6 +263,7 @@ definitions:
   User:
     type: "object"
     required:
+      - "name"
       - "email"
       - "password"
     properties:
@@ -354,11 +290,35 @@ definitions:
   LogoutUser:
     type: "object"
     required:
-      - "user_id"
+      - "email"
+      - "password"
+      - "accessToken"
     properties:
-      user_id:
+      email:
         type: "integer"
         format: "int64"
+      password:
+        type: "string"
+      accessToken:
+        type: "string"
+    xml:
+      name: "User"
+  UpdateUser:
+    type: "object"
+    required:
+      - "email"
+      - "password"
+      - "accessToken"
+      - "newPassword"
+    properties:
+      email:
+        type: "string"
+      password: 
+        type: "string"
+      accessToken:
+        type: "string"
+      newPassword: 
+        type: "string"
     xml:
       name: "User"
   Comment:
