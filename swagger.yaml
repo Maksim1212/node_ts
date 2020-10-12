@@ -181,6 +181,126 @@ paths:
                     description: "Invalid ID supplied"
                   "404":
                     description: "Post not found"
+  /posts/create:
+    post:
+      tags:
+      - "post"
+      summary: "Create post"
+      description: "Create new post"
+      operationId: "createPost"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created post object"
+        required: true
+        schema:
+          $ref: "#/definitions/CreatePost"
+      responses:
+        default:
+          description: "successful operation"
+  /posts/update:
+    put:
+      tags:
+      - "post"
+      summary: "Update post"
+      description: "Update post data"
+      operationId: "updatePost"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update post object"
+        required: true
+        schema:
+          $ref: "#/definitions/UpdatePost"
+      responses:
+        default:
+          description: "successful operation"
+  /posts/sort:
+    post:
+      tags:
+      - "post"
+      summary: "Sort Posts By Date"
+      description: "Sort Posts By Date"
+      operationId: "sortPostsByDate"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sort posts"
+        required: true
+        schema:
+          $ref: "#/definitions/SortPostsByDate"
+      responses:
+        default:
+          description: "successful operation"
+  /posts/likes:
+    post:
+      tags:
+      - "post"
+      summary: "Sort Posts By Likes"
+      description: "Sort Posts By Likes"
+      operationId: "sortPostsByLikes"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Sort posts"
+        required: true
+        schema:
+          $ref: "#/definitions/SortPostsByDate"
+      responses:
+        default:
+          description: "successful operation"
+  /posts/like:
+    put:
+      tags:
+      - "post"
+      summary: "Update post data"
+      description: "Update post by Id"
+      operationId: "updatePostById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Update post"
+        required: true
+        schema:
+          $ref: "#/definitions/AddLike"
+      responses:
+        default:
+          description: "successful operation"
+  /posts/:
+    delete:
+      tags:
+      - "post"
+      summary: "Delete post data"
+      description: "Delete post by Id"
+      operationId: "deletePostById"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Delete post"
+        required: true
+        schema:
+          $ref: "#/definitions/DeletePost"
+      responses:
+        default:
+          description: "successful operation"
   /comments: 
     get:
       tags:
@@ -222,6 +342,66 @@ paths:
           description: "successful operation"
           schema:
           $ref: "#/definitions/Comment"
+  /comments/create: 
+    post:
+      tags:
+      - "comment"
+      summary: "Create new comment"
+      description: "Create new comment"
+      operationId: "CreateComment"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Created comment object"
+        required: true
+        schema:
+          $ref: "#/definitions/CreateComment"
+      responses:
+        default:
+          description: "successful operation"
+  /comments/like:
+    put:
+      tags:
+      - "comment"
+      summary: "Add like to comment"
+      description: "Add like to comment"
+      operationId: "LikeComment"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Like comment"
+        required: true
+        schema:
+          $ref: "#/definitions/LikeComment"
+      responses:
+        default:
+          description: "successful operation"
+  /comments/:
+    delete:
+      tags:
+      - "comment"
+      summary: "Delete comment"
+      description: "Delete comment by id"
+      operationId: "DeleteCommnet"
+      produces:
+      - "application/xml"
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Delete comment"
+        required: true
+        schema:
+          $ref: "#/definitions/DeletePost"
+      responses:
+        default:
+          description: "successful operation"
 securityDefinitions:
   petstore_auth:
     type: "oauth2"
@@ -259,6 +439,66 @@ definitions:
       likes:
          type: "array"
     xml:
+      name: "Post"
+  CreatePost: 
+    type: "object"
+    properties:
+      title: 
+        type: "string"
+      body: 
+        type: "string"
+      author_id: 
+        type: "integer"
+        format: "int64"
+      author_name: 
+        type: "string"
+      accessToken: 
+        type: "string"
+    xml: 
+      name: "Post"
+  UpdatePost:
+    type: "object"
+    properties:
+      title:
+        type: "string"
+      body:
+        type: "string"
+      id:
+        type: "integer"
+        format: "int64"
+      author_id:
+        type: "integer"
+        format: "int64"
+      accessToken:
+        type: "string"
+  AddLike:
+    type: "object"
+    properties:
+      post_id:
+        type: "integer"
+        format: "int64"
+      user_id:
+        type: "integer"
+        format: "int64"
+      accessToken:
+        type: "string"
+  DeletePost:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      user_id:
+        type: "integer"
+        format: "int64"
+      accessToken:
+        type: "string"
+  SortPostsByDate:
+    type: "object"
+    properties:
+      parametr: 
+        type: "string"
+    xml: 
       name: "Post"
   User:
     type: "object"
@@ -345,6 +585,60 @@ definitions:
         type: "integer"
         format: "int64"
     xml:
+      name: "Comment"
+  CreateComment: 
+    type: "object"
+    required: 
+      - "post_id"
+      - "body"
+      - "author_id"
+      - "accessToken"
+    properties: 
+      post_id:
+        type: "integer"
+        format: "int64"
+      body: 
+        type: "string"
+      author_id:
+        type: "integer"
+        format: "int64"
+      accessToken:
+        type: "string"
+    xml: 
+      name: "Comment"
+  LikeComment: 
+    type: "object"
+    required: 
+      - "id"
+      - "user_id"
+      - "accessToken"
+    properties: 
+      id:
+        type: "integer"
+        format: "int64"
+      user_id:
+        type: "integer"
+        format: "int64"
+      accessToken:
+        type: "string"
+    xml: 
+      name: "Comment"
+  DeleteComment: 
+    type: "object"
+    required: 
+      - "id"
+      - "user_id"
+      - "accessToken"
+    properties: 
+      id:
+        type: "integer"
+        format: "int64"
+      user_id:
+        type: "integer"
+        format: "int64"
+      accessToken:
+        type: "string"
+    xml: 
       name: "Comment"
   ApiResponse:
     type: "object"
