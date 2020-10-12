@@ -30,3 +30,4 @@ npm run migration:run
 ```
 npm run migration:revert
 ```
+After starting server go to http://localhost:3000/api-docs if you want to see swagger doc
