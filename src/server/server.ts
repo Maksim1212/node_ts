@@ -6,6 +6,9 @@ import * as cors from 'cors';
 import * as helmet from 'helmet';
 import * as session from 'express-session';
 import { createConnection } from 'typeorm';
+import * as YAML from 'yamljs';
+import * as swaggerUi from 'swagger-ui-express';
+
 import AuthUserRouter from '../routes/user_router';
 import PostRouter from '../routes/post_router';
 import CommentRouter from '../routes/comment_router';
@@ -24,6 +27,8 @@ const app: express.Application = express();
  */
 
 createConnection();
+
+const swaggerDocument = YAML.load('./swagger.yaml');
 
 app.use(
     bodyParser.urlencoded({
@@ -89,6 +94,8 @@ app.use('/posts', PostRouter);
  * @param {callback} middleware - Express middleware.
  */
 app.use('/comments', CommentRouter);
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 /**
  * @description No results returned mean the object is not found

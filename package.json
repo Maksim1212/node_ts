@@ -24,6 +24,8 @@
     "dependencies": {
         "@types/jsonwebtoken": "^8.5.0",
         "@types/supertest": "^2.0.10",
+        "@types/swagger-jsdoc": "^3.0.2",
+        "@types/swagger-ui-express": "^4.1.2",
         "bcrypt": "^5.0.0",
         "body-parser": "^1.19.0",
         "chai": "^4.2.0",
@@ -45,7 +47,10 @@
         "mysql": "^2.14.1",
         "reflect-metadata": "^0.1.10",
         "supertest": "^5.0.0",
-        "typeorm": "0.2.25"
+        "swagger-jsdoc": "^4.2.3",
+        "swagger-ui-express": "^4.1.4",
+        "typeorm": "0.2.25",
+        "yamljs": "^0.3.0"
     },
     "devDependencies": {
         "@types/bcrypt": "^3.0.0",
@@ -57,6 +62,7 @@
         "@types/faker": "^5.1.2",
         "@types/mocha": "^8.0.3",
         "@types/node": "^8.0.29",
+        "@types/yamljs": "^0.2.31",
         "@typescript-eslint/eslint-plugin": "^4.3.0",
         "@typescript-eslint/parser": "^4.3.0",
         "commitizen": "^4.2.1",
