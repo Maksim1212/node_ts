@@ -402,18 +402,6 @@ paths:
       responses:
         default:
           description: "successful operation"
-securityDefinitions:
-  petstore_auth:
-    type: "oauth2"
-    authorizationUrl: "http://petstore.swagger.io/oauth/dialog"
-    flow: "implicit"
-    scopes:
-      write:pets: "modify pets in your account"
-      read:pets: "read your pets"
-    api_key:
-      type: "apiKey"
-      name: "api_key"
-      in: "header"
 definitions:
   Post:
     type: "object"
@@ -442,6 +430,12 @@ definitions:
       name: "Post"
   CreatePost: 
     type: "object"
+    required: 
+      - "title"
+      - "body"
+      - "author_id"
+      - "author_name"
+      - "accessToken"
     properties:
       title: 
         type: "string"
@@ -458,6 +452,12 @@ definitions:
       name: "Post"
   UpdatePost:
     type: "object"
+    required:
+      - "title"
+      - "body"
+      - "id"
+      - "author_id"
+      - "accessToken"
     properties:
       title:
         type: "string"
@@ -473,6 +473,10 @@ definitions:
         type: "string"
   AddLike:
     type: "object"
+    required:
+      - "post_id"
+      - "user_id"
+      - "accessToken"
     properties:
       post_id:
         type: "integer"
@@ -484,6 +488,10 @@ definitions:
         type: "string"
   DeletePost:
     type: "object"
+    required:
+      - "id"
+      - "user_id"
+      - "accessToken"
     properties:
       id:
         type: "integer"
@@ -495,6 +503,8 @@ definitions:
         type: "string"
   SortPostsByDate:
     type: "object"
+    required:
+      - "parametr"
     properties:
       parametr: 
         type: "string"
