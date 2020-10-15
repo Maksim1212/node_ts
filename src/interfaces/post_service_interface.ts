@@ -1,7 +1,7 @@
 interface GetAllPosts {
     [index: number]: {
         id: number;
-        author_id: number;
+        user_id: number;
         author_name: string;
         title: string;
         body: string;
@@ -11,7 +11,7 @@ interface GetAllPosts {
 }
 
 interface OnePost {
-    author_id: number;
+    user_id: number;
     author_name: string;
     title: string;
     body: string;
@@ -23,7 +23,7 @@ interface OnePost {
 interface PostData {
     title: string;
     body: string;
-    author_id: number;
+    user_id: number;
     author_name: string;
     accessToken: string;
 }

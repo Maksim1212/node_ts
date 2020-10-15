@@ -8,7 +8,7 @@ const id = 2;
 const commentData = {
     post_id: 2,
     body: "Chai",
-    author_id: '1',
+    user_id: '1',
 }
 
 updateComment = {

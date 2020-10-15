@@ -6,7 +6,7 @@ export default class Post {
     id: number;
 
     @Column({ type: 'varchar' })
-    author_id: number;
+    user_id: number;
 
     @Column({ type: 'varchar' })
     author_name: string;

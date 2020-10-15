@@ -18,6 +18,10 @@ function updateUser(id: number, password: QueryDeepPartialEntity<User>): Promise
     return getRepository(User).update(id, password);
 }
 
+function fundOrFail(id: number): Promise<OneUser> {
+    return getRepository(User).findOne(id);
+}
+
 function findByUserId(id: number): Promise<OneUser> {
     return getRepository(User).findOne(id);
 }
@@ -26,4 +30,4 @@ function dropUserToken(id: number, data: UpdateData): Promise<UpdateResult> {
     return getRepository(User).update(id, data);
 }
 
-export { findByEmail, createUser, updateUser, findByUserId, dropUserToken };
+export { findByEmail, createUser, updateUser, findByUserId, dropUserToken, fundOrFail };

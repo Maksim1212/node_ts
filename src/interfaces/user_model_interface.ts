@@ -6,12 +6,12 @@ export interface UpdateData {
     refreshToken: string;
 }
 
-export interface Tokens {
+export interface TokensInterface {
     accessToken: string;
     refreshToken: string;
 }
 
-export interface UserMain {
+export interface UserMainInterface {
     id: number;
     name: string;
 }

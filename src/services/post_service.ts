@@ -18,7 +18,7 @@ function findByPostId(id: number): Promise<OnePost> {
 }
 
 function findByUserId(id: number): Promise<OnePost[]> {
-    return getRepository(Post).find({ author_id: id });
+    return getRepository(Post).find({ user_id: id });
 }
 
 function updatePostById(id: number, body: Likes): Promise<UpdateResult> {

@@ -1,6 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 
-import { UserMain } from '../interfaces/user_model_interface';
+import { UserMainInterface } from '../interfaces/user_model_interface';
 
 @Entity()
 export class User {
@@ -23,7 +23,7 @@ export class User {
     is_admin: boolean;
 }
 
-export function getUserMainFields(user: UserMain): UserMain {
+export function getUserMainFields(user: UserMainInterface): UserMainInterface {
     const { name, id } = user;
     return {
         id,

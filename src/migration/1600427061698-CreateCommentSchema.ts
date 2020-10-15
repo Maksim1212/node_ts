@@ -15,7 +15,7 @@ export class CreateCommentSchema1600427061698 implements MigrationInterface {
                         isGenerated: true,
                     },
                     {
-                        name: 'author_id',
+                        name: 'user_id',
                         type: 'int',
                         isNullable: false,
                     },

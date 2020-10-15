@@ -1,7 +1,7 @@
 interface AllComments {
     [index: number]: {
         id: number;
-        author_id: number;
+        user_id: number;
         body: string;
         likes: string[];
         post_id: number;
@@ -11,7 +11,7 @@ interface AllComments {
 
 interface OneComment {
     id: number;
-    author_id: number;
+    user_id: number;
     body: string;
     likes: string[];
     post_id: number;
@@ -21,7 +21,7 @@ interface OneComment {
 interface CommentData {
     post_id: number;
     body: string;
-    author_id: number;
+    user_id: number;
     accessToken: string;
 }
 

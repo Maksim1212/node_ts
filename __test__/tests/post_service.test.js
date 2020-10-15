@@ -8,7 +8,7 @@ const id = 2;
 const postData = {
     title: 'Chai',
     body: "Chai",
-    author_id: '011',
+    user_id: '011',
     author_name: 'Chai',
     accessToken: 'accessTokenaccessTokenaccessTokenaccessToken',
 }
@@ -73,7 +73,7 @@ describe('PostComponent -> service', () => {
     });
 
     it('PostComponent -> service -> positive -> findByUserId', (done) => {
-        PostService.findByUserId(postData.author_id)
+        PostService.findByUserId(postData.user_id)
             .then((res) => {
                 const expectBody = expect(res);
                 deletedPostId = res[0].id;

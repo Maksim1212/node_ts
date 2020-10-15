@@ -6,7 +6,7 @@ export default class Comment {
     id: number;
 
     @Column({ type: 'varchar' })
-    author_id: number;
+    user_id: number;
 
     @Column({ type: 'text' })
     body: string;

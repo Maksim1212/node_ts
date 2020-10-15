@@ -2,7 +2,10 @@ import { Request, Response } from 'express';
 
 import LikesData from '../interfaces/likes_data_interface';
 import * as PostService from '../services/post_service';
+import * as UserService from '../services/user_service';
 import isAdmin from '../middleware/is_admin';
+import { getUserMainFields } from '../entities/user';
+import { PostData } from '../interfaces/post_service_interface';
 
 export async function findAll(req: Request, res: Response): Promise<Response> {
     const posts = await PostService.findAll();
@@ -10,7 +13,24 @@ export async function findAll(req: Request, res: Response): Promise<Response> {
 }
 
 export async function create(req: Request, res: Response): Promise<Response> {
-    const results = await PostService.cretePost(req.body);
+    const user = await UserService.findByUserId(Number(req.body.user_id));
+
+    const userMain = {
+        ...getUserMainFields(user),
+    };
+
+    const postData: PostData[] = [
+        {
+            title: req.body.title,
+            body: req.body.body,
+            user_id: req.body.user_id,
+            author_name: userMain.name,
+            accessToken: req.body.accessToken,
+        },
+    ];
+
+    const results = await PostService.cretePost(postData);
+
     return res.json(results);
 }
 
@@ -25,10 +45,10 @@ export async function findByUserId(req: Request, res: Response): Promise<Respons
 }
 
 export async function updateById(req: Request, res: Response): Promise<Response> {
-    const id = Number(req.body.author_id);
+    const id = Number(req.body.user_id);
     const post = await PostService.findOrfail(Number(req.body.id));
 
-    if ((await isAdmin(id)) || post.author_id === req.body.author_id) {
+    if ((await isAdmin(id)) || post.user_id === req.body.user_id) {
         await PostService.updatePostById(req.body.id, req.body);
         return res.status(200).json({
             message: 'post updated successfully',
@@ -43,7 +63,7 @@ export async function deleteById(req: Request, res: Response): Promise<Response>
     const id = Number(req.body.user_id);
     const post = await PostService.findByPostId(Number(req.params.id));
 
-    if ((await isAdmin(id)) || post.author_id === req.body.user_id) {
+    if ((await isAdmin(id)) || post.user_id === req.body.user_id) {
         await PostService.deletePost(req.body.id);
         return res.status(200).json({
             message: 'post deleted successfully',
